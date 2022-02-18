@@ -1,0 +1,43 @@
+prefix: '&7[&bSkyblock X&7] '
+
+Messages:
+  No-Permission: You dont have the permission to do this!
+  Unknown-Command: Unknown command! use /Skyblock for a list of commands
+  World-Not-Loaded: It seems like the Skyblock world is not loaded!
+  Creating-Island: Creating an island for you...!
+  Island-Creation: 'Your island has been created! (Island ID is #%island_id%)'
+  Island-Not-Found: 'Could not find your island! (Island ID #%island_id%)'
+  Not-In-Skyblock: You must be in skyblock to perform this command!
+
+Inventories:
+  Statistics-Menu: '&9Statistics menu'
+  Skills-Menu: '&9Skills menu'
+
+Items:
+  Wand: 'BLAZE_ROD : name:&bSkyblock X &dWand : lore:&e-------------------------- : lore:&aLeft click to select the first corner : lore:&aRight click to select the second corner : lore:&e--------------------------'
+  Pane: 'GRAY_STAINED_GLASS_PANE : name:&7 '
+  Back: 'ARROW : name:&aBack : lore:&7Click to go back!'
+
+Statistics:
+  MOBS_KILLED:
+    Displayed-Name: Mobs killed
+    Displayed-Item: 'ZOMBIE_HEAD'
+  ORES_MINED:
+    Displayed-Name: Ores mined
+    Displayed-Item: 'IRON_ORE'
+  BLOCKS_PLACED:
+    Displayed-Name: Blocks placed
+    Displayed-Item: 'STONE'
+  BLOCKS_BROKEN:
+    Displayed-Name: Blocks broken
+    Displayed-Item: 'STONE_PICKAXE'
+
+Statistics-Menu-Format:
+  Item-Name: '&b%statistic%:'
+  Item-Lore:
+  - '&e%score%'
+
+Skills-Menu-Format:
+  Item-Name: '&b%skill%'
+  Item-Lore:
+    - '%description%'

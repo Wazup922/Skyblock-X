@@ -1,0 +1,21 @@
+# Impact for each skill is different!
+# For Combat, impact is the bonus damage applied
+# For Mining, impact is the probability of getting a double drop!
+
+Enabled: true
+
+Generate-Default-Skills: true
+
+Skills:
+  Combat:
+    Displayed-Name: 'Combat'
+    Description:
+    - 'Kill mobs to increase your'
+    - 'combat skills and become stronger!'
+    Levels: {}
+  Mining:
+    Displayed-Name: 'Mining'
+    Description:
+    - 'Mine ores to become a more'
+    - 'efficient miner and gain more drops!'
+    Levels: {}

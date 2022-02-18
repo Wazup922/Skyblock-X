@@ -1,0 +1,10 @@
+name: SkyblockX
+author: Wazup92
+version: 1.0
+main: me.wazup.skyblock.Skyblock
+api-version: 1.13
+softdepend: [Vault]
+commands:
+  skyblock:
+    description: Shows a list of commands related to Skyblock X!
+    aliases: [sb, skyblockx, sbx]
