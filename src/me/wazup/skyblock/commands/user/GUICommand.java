@@ -12,10 +12,10 @@ import java.util.List;
 
 public class GUICommand extends SubCommand {
 
-    private final List<String> options = Arrays.asList( "stats", "skills" );
+    private final List<String> options = Arrays.asList( "stats", "skills", "warps" );
 
     public GUICommand() {
-        super("Opens interfaces directly", null, false, "<Stats/Skills>");
+        super("Opens interfaces directly", null, false, "<Stats/Skills/Warps>");
     }
 
     @Override
@@ -34,6 +34,7 @@ public class GUICommand extends SubCommand {
         String option = args[1].toLowerCase();
         if(option.equals("stats")) p.openInventory(data.getStatisticsMenu(false));
         else if(option.equals("skills")) p.openInventory(data.getSkillsMenu(false));
+        else if(option.equals("warps")) Skyblock.getInstance().serverWarps.inventory.open(p);
 
         return true;
     }

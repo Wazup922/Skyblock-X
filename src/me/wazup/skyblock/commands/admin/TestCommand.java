@@ -2,6 +2,7 @@ package me.wazup.skyblock.commands.admin;
 
 import me.wazup.skyblock.PlayerCondition;
 import me.wazup.skyblock.commands.SubCommand;
+import me.wazup.skyblock.utils.XMaterial;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,21 +17,7 @@ public class TestCommand extends SubCommand {
 
         Player p = (Player) sender;
 
-        if(args.length == 1) {
-
-            PlayerCondition pc = new PlayerCondition();
-            pc.extractCondition(p);
-            pc.saveConditionToFile(p);
-
-            p.sendMessage("Saved");
-        } else {
-            PlayerCondition pc = new PlayerCondition();
-            pc.loadConditionFromFile(p);
-            pc.applyCondition(p);
-
-            p.sendMessage("Loaded");
-
-        }
+        p.getLocation().getBlock().setType(XMaterial.GRASS.parseMaterial());
 
         return true;
     }

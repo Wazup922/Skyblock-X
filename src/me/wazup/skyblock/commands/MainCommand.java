@@ -6,6 +6,8 @@ import me.wazup.skyblock.commands.admin.TestCommand;
 import me.wazup.skyblock.commands.admin.ThemesCommand;
 import me.wazup.skyblock.commands.user.GUICommand;
 import me.wazup.skyblock.commands.user.IslandCommand;
+import me.wazup.skyblock.commands.user.LeaveCommand;
+import me.wazup.skyblock.commands.user.WarpsCommand;
 import me.wazup.skyblock.managers.Customization;
 import me.wazup.skyblock.managers.SoundsManager;
 import me.wazup.skyblock.utils.Enums;
@@ -26,10 +28,12 @@ public class MainCommand implements CommandExecutor {
 
         //User commands
         commands.put("island", new IslandCommand());
+        commands.put("leave", new LeaveCommand());
         commands.put("gui", new GUICommand());
 
         //Admin commands
         commands.put("themes", new ThemesCommand());
+        commands.put("warps", new WarpsCommand());
 
         commands.put("admin", new AdminCommand()); //It is registered last so that it sees all admin commands before it, but it does not see itself
         commands.put("test", new TestCommand());

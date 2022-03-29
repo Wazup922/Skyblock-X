@@ -2,22 +2,24 @@ package me.wazup.skyblock.managers;
 
 import me.wazup.skyblock.Skyblock;
 import me.wazup.skyblock.utils.Cuboid;
+import me.wazup.skyblock.utils.ReflectionUtils;
+import me.wazup.skyblock.utils.Utils;
 import me.wazup.skyblock.utils.XMaterial;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Optional;
+import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public class ThemeManager {
 
@@ -34,20 +36,27 @@ public class ThemeManager {
         themes = new HashMap<>();
 
         File mainDirectory = new File(Skyblock.getInstance().getDataFolder(), "themes");
-        if(mainDirectory.exists()){
-            for(File themeFolder: mainDirectory.listFiles()){
-                if(themeFolder.isDirectory()){
-                    String themeName = themeFolder.getName();
-                    File saveFile = new File(Skyblock.getInstance().getDataFolder() + "/themes/" + themeName, "blocks");
-                    if(saveFile.exists()) themes.put(themeName.toLowerCase(), new Theme(themeName));
-                }
+
+        File defaultTheme = new File(mainDirectory, "Default");
+        if(!defaultTheme.exists()){
+            FileConfiguration defaultThemeConfiguration = YamlConfiguration.loadConfiguration(new InputStreamReader(Skyblock.getInstance().getResource("themes/Default")));
+            try {
+                defaultThemeConfiguration.save(defaultTheme);
+            } catch (IOException e) {
+                Utils.error("Failed to generate the default theme!");
+                e.printStackTrace();
             }
+        }
+
+        for(File themeFile: mainDirectory.listFiles()){ //Directory will now always exist.
+            themes.put(themeFile.getName().toLowerCase(), new Theme(themeFile));
         }
 
     }
 
     public boolean createTheme(Cuboid cuboid, String name, Player p) {
         ArrayList<String> blocks = new ArrayList<>();
+        HashMap<String, ItemStack[]> containers = new HashMap<>();
         Iterator<Block> iterator = cuboid.iterator();
 
         String spawnLocation = null;
@@ -55,7 +64,33 @@ public class ThemeManager {
             String coordinates = iterator.toString();
             Block b = iterator.next();
             if(spawnLocation == null && b.getLocation().equals(p.getLocation().add(0, -1, 0).getBlock().getLocation())) spawnLocation = coordinates;
-            if(b.getType() != Material.AIR) blocks.add(coordinates + ":" + b.getType());
+            if(b.getType() != Material.AIR) {
+//                if(XMaterial.isNewVersion()){
+//                    blocks.add(coordinates + ":" + b.getType().name());
+//                } else {
+//                    blocks.add(coordinates + ":" + b.getType().name() + (b.getData() > 0 ? ":" + b.getData() : ""));
+//                }
+                if(XMaterial.isNewVersion()){ //In new versions, data is unrelated to material type. you will save it correctly directly.
+                    if(b.getBlockData() instanceof Directional){
+                        byte direction = Utils.getByteFromFace(((Directional) b.getBlockData()).getFacing());
+                        blocks.add(coordinates + ":" + XMaterial.matchXMaterial(b.getType()).name() + ":" + direction);
+                    } else {
+                        blocks.add(coordinates + ":" + XMaterial.matchXMaterial(b.getType()).name()); //Not a directional
+                    }
+                } else {
+                    Optional<XMaterial> xmaterial = XMaterial.matchXMaterial(b.getType() + ":" + b.getData()); //In old versions, we cannot just use material type because several materials have the same type but are different in data
+                    if(xmaterial.isPresent()) blocks.add(coordinates + ":" + xmaterial.get().name());
+                    else { //The id then probably represents direction, not a different material
+                        blocks.add(coordinates + ":" + XMaterial.matchXMaterial(b.getType()).name() + ":" + b.getData());
+                    }
+                }
+            }
+
+            //Containers
+            Inventory blockInventory = Utils.getBlockInventory(b);
+            if(blockInventory != null){
+                containers.put(coordinates, blockInventory.getContents());
+            }
         }
 
         if(spawnLocation == null){
@@ -65,16 +100,17 @@ public class ThemeManager {
 
         spawnLocation += ":" + p.getLocation().getYaw() + ":" + p.getLocation().getPitch();
 
-        File saveFile = new File(Skyblock.getInstance().getDataFolder() + "/themes/" + name, "blocks");
+        File saveFile = new File(Skyblock.getInstance().getDataFolder() + "/themes", name);
         FileConfiguration editor = YamlConfiguration.loadConfiguration(saveFile);
 
         editor.set("Spawn", spawnLocation);
-        editor.set("Blocks", blocks);
         editor.set("Width", cuboid.getWidth());
         editor.set("Length", cuboid.getLength());
+        editor.set("Blocks", blocks.toString());
+        editor.set("Containers", containers);
         try {
             editor.save(saveFile);
-            themes.put(name.toLowerCase(), new Theme(name));
+            themes.put(name.toLowerCase(), new Theme(saveFile));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,28 +122,46 @@ public class ThemeManager {
 
         public String name;
 
-        HashMap<CLocation, Material> blocks;
+        HashMap<CLocation, CBlock> blocks;
         int width, length;
         Location spawn; //Holds x, y, z, yaw and pitch (NO WORLD)
 
-        public Theme(String name){
-            this.name = name;
+        public Theme(File saveFile){
+            this.name = saveFile.getName();
 
-            File saveFile = new File(Skyblock.getInstance().getDataFolder() + "/themes/" + name, "blocks");
             FileConfiguration editor = YamlConfiguration.loadConfiguration(saveFile);
 
             String[] spliter = editor.getString("Spawn").split(":");
             spawn = new Location(null, Float.parseFloat(spliter[0]) - 0.5f, Float.parseFloat(spliter[1]) + 1f, Float.parseFloat(spliter[2]) - 0.5f, Float.parseFloat(spliter[3]), Float.parseFloat(spliter[4]));
 
+            HashMap<CLocation, ItemStack[]> containers = new HashMap<>();
+            if(editor.getConfigurationSection("Containers") != null)
+                for(String coordinates: editor.getConfigurationSection("Containers").getKeys(false)){
+                    spliter = coordinates.split(":");
+                    int x = Integer.parseInt(spliter[0]), y = Integer.parseInt(spliter[1]), z = Integer.parseInt(spliter[2]);
+
+                    List<ItemStack> content = (List<ItemStack>) editor.get("Containers." + coordinates);
+
+                    containers.put(new CLocation(x, y, z), content.toArray(new ItemStack[content.size()]));
+                }
+
             blocks = new HashMap<>();
             String[] blockSpliter = editor.getString("Blocks").replace("[", "").replace("]", "").split(", ");
             for(String block: blockSpliter){
                 spliter = block.split(":");
-                Optional<XMaterial> material = XMaterial.matchXMaterial(spliter[3]);
-                if(!material.isPresent()) continue;
                 int x = Integer.parseInt(spliter[0]), y = Integer.parseInt(spliter[1]), z = Integer.parseInt(spliter[2]);
+                CLocation cLocation = new CLocation(x, y, z);
 
-                blocks.put(new CLocation(x, y, z), material.get().parseMaterial());
+                XMaterial xMaterial = XMaterial.valueOf(spliter[3]);
+                Material material = xMaterial.parseMaterial();
+
+                byte direction = 0;
+                if(spliter.length > 4) direction = Byte.parseByte(spliter[4]);
+                byte passedData = (byte) Math.max(direction, XMaterial.isNewVersion() ? 0 : xMaterial.getData()); //One of them will be zero. Cannot be both.
+
+                ItemStack[] inventory = containers.get(cLocation);
+
+                blocks.put(cLocation, new CBlock(material, passedData, inventory));
             }
 
             width = editor.getInt("Width");
@@ -121,7 +175,29 @@ public class ThemeManager {
             for(CLocation cl: blocks.keySet()) {
                 Location l = new Location(w, centerBlock.getBlockX() + cl.x - subtractWidth, centerBlock.getBlockY() + cl.y, centerBlock.getBlockZ() + cl.z - subtractLength);
                 Block b = w.getBlockAt(l);
-                b.setType(blocks.get(cl), false);
+                CBlock cBlock = blocks.get(cl);
+                b.setType(cBlock.material, false);
+
+                if(cBlock.data > 0){
+                    if(XMaterial.isNewVersion()){
+                        BlockData blockData = b.getBlockData();
+                        if(blockData instanceof Directional){
+                            ((Directional) blockData).setFacing(Utils.getFaceFromByte(cBlock.data));
+                            Bukkit.broadcastMessage(Utils.getFaceFromByte(cBlock.data).name());
+                            b.setBlockData(blockData);
+                        }
+                    } else {
+                        try {
+                            ReflectionUtils.setData.invoke(b, cBlock.data, false);
+                        } catch (IllegalAccessException | InvocationTargetException ignored) {
+                        }
+                    }
+                }
+
+                if(cBlock.inventory != null){
+                    Inventory blockInventory = Utils.getBlockInventory(b);
+                    if(blockInventory != null) blockInventory.setContents(cBlock.inventory);
+                }
             }
         }
 
@@ -132,6 +208,20 @@ public class ThemeManager {
             l.setYaw(spawn.getYaw());
             l.setPitch(spawn.getPitch());
             return l;
+        }
+
+        private class CBlock {
+
+            Material material;
+            byte data;
+            ItemStack[] inventory;
+
+            public CBlock(Material material, byte data, ItemStack[] inventory){
+                this.material = material;
+                this.data = data;
+                this.inventory = inventory;
+            }
+
         }
 
         private class CLocation {

@@ -1,0 +1,171 @@
+Spawn: 3:2:1:-48.664707:10.380212
+Width: 8
+Length: 8
+Blocks: '[2:0:0:DIRT, 3:0:0:DIRT, 4:0:0:DIRT, 5:0:0:DIRT, 6:0:0:DIRT, 7:0:0:DIRT,
+  2:0:1:DIRT, 3:0:1:DIRT, 4:0:1:DIRT, 5:0:1:DIRT, 6:0:1:DIRT, 7:0:1:DIRT, 2:0:2:DIRT,
+  3:0:2:DIRT, 4:0:2:DIRT, 5:0:2:DIRT, 6:0:2:DIRT, 7:0:2:DIRT, 2:0:3:DIRT, 3:0:3:DIRT,
+  4:0:3:DIRT, 2:0:4:DIRT, 3:0:4:DIRT, 4:0:4:DIRT, 2:0:5:DIRT, 3:0:5:DIRT, 4:0:5:DIRT,
+  2:1:0:DIRT, 3:1:0:DIRT, 4:1:0:DIRT, 5:1:0:DIRT, 6:1:0:DIRT, 7:1:0:DIRT, 2:1:1:DIRT,
+  3:1:1:DIRT, 4:1:1:DIRT, 5:1:1:DIRT, 6:1:1:DIRT, 7:1:1:DIRT, 2:1:2:DIRT, 3:1:2:DIRT,
+  4:1:2:DIRT, 5:1:2:DIRT, 6:1:2:DIRT, 7:1:2:DIRT, 2:1:3:DIRT, 3:1:3:DIRT, 4:1:3:DIRT,
+  2:1:4:DIRT, 3:1:4:DIRT, 4:1:4:DIRT, 2:1:5:DIRT, 3:1:5:DIRT, 4:1:5:DIRT, 2:2:0:GRASS_BLOCK,
+  3:2:0:GRASS_BLOCK, 4:2:0:GRASS_BLOCK, 5:2:0:GRASS_BLOCK, 6:2:0:GRASS_BLOCK, 7:2:0:GRASS_BLOCK,
+  2:2:1:GRASS_BLOCK, 3:2:1:GRASS_BLOCK, 4:2:1:GRASS_BLOCK, 5:2:1:GRASS_BLOCK, 6:2:1:GRASS_BLOCK,
+  7:2:1:GRASS_BLOCK, 2:2:2:GRASS_BLOCK, 3:2:2:GRASS_BLOCK, 4:2:2:GRASS_BLOCK, 5:2:2:GRASS_BLOCK,
+  6:2:2:GRASS_BLOCK, 7:2:2:GRASS_BLOCK, 2:2:3:GRASS_BLOCK, 3:2:3:GRASS_BLOCK, 4:2:3:GRASS_BLOCK,
+  2:2:4:GRASS_BLOCK, 3:2:4:GRASS_BLOCK, 4:2:4:GRASS_BLOCK, 2:2:5:DIRT, 3:2:5:GRASS_BLOCK,
+  4:2:5:GRASS_BLOCK, 2:3:0:GRASS, 3:3:0:POPPY, 4:3:0:GRASS, 2:3:1:GRASS, 3:3:1:GRASS,
+  4:3:1:GRASS, 5:3:1:GRASS, 7:3:1:CHEST:4, 2:3:2:GRASS, 3:3:2:GRASS, 4:3:2:GRASS,
+  5:3:2:GRASS, 3:3:3:GRASS, 4:3:3:GRASS, 2:3:4:DANDELION, 3:3:4:GRASS, 4:3:4:GRASS,
+  2:3:5:OAK_LOG, 3:3:5:GRASS, 4:3:5:GRASS, 2:4:5:OAK_LOG, 2:5:5:OAK_LOG, 1:6:3:OAK_LEAVES,
+  2:6:3:OAK_LEAVES, 3:6:3:OAK_LEAVES, 0:6:4:OAK_LEAVES, 1:6:4:OAK_LEAVES, 2:6:4:OAK_LEAVES,
+  3:6:4:OAK_LEAVES, 4:6:4:OAK_LEAVES, 0:6:5:OAK_LEAVES, 1:6:5:OAK_LEAVES, 2:6:5:OAK_LOG,
+  3:6:5:OAK_LEAVES, 4:6:5:OAK_LEAVES, 0:6:6:OAK_LEAVES, 1:6:6:OAK_LEAVES, 2:6:6:OAK_LEAVES,
+  3:6:6:OAK_LEAVES, 4:6:6:OAK_LEAVES, 0:6:7:OAK_LEAVES, 1:6:7:OAK_LEAVES, 2:6:7:OAK_LEAVES,
+  3:6:7:OAK_LEAVES, 4:6:7:OAK_LEAVES, 1:7:3:OAK_LEAVES, 2:7:3:OAK_LEAVES, 3:7:3:OAK_LEAVES,
+  4:7:3:OAK_LEAVES, 0:7:4:OAK_LEAVES, 1:7:4:OAK_LEAVES, 2:7:4:OAK_LEAVES, 3:7:4:OAK_LEAVES,
+  4:7:4:OAK_LEAVES, 0:7:5:OAK_LEAVES, 1:7:5:OAK_LEAVES, 2:7:5:OAK_LOG, 3:7:5:OAK_LEAVES,
+  4:7:5:OAK_LEAVES, 0:7:6:OAK_LEAVES, 1:7:6:OAK_LEAVES, 2:7:6:OAK_LEAVES, 3:7:6:OAK_LEAVES,
+  4:7:6:OAK_LEAVES, 0:7:7:OAK_LEAVES, 1:7:7:OAK_LEAVES, 2:7:7:OAK_LEAVES, 3:7:7:OAK_LEAVES,
+  1:8:4:OAK_LEAVES, 2:8:4:OAK_LEAVES, 1:8:5:OAK_LEAVES, 2:8:5:OAK_LOG, 3:8:5:OAK_LEAVES,
+  1:8:6:OAK_LEAVES, 2:8:6:OAK_LEAVES, 3:8:6:OAK_LEAVES, 2:9:4:OAK_LEAVES, 1:9:5:OAK_LEAVES,
+  2:9:5:OAK_LEAVES, 3:9:5:OAK_LEAVES, 2:9:6:OAK_LEAVES]'
+Containers:
+  '7:3:1':
+  - ==: org.bukkit.inventory.ItemStack
+    type: ICE
+  - ==: org.bukkit.inventory.ItemStack
+    type: LAVA_BUCKET
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - ==: org.bukkit.inventory.ItemStack
+    type: MELON
+  - ==: org.bukkit.inventory.ItemStack
+    type: PUMPKIN_SEEDS
+  - ==: org.bukkit.inventory.ItemStack
+    type: SUGAR_CANE
+  - null
+  - ==: org.bukkit.inventory.ItemStack
+    type: WRITTEN_BOOK
+    meta:
+      ==: ItemMeta
+      meta-type: BOOK_SIGNED
+      title: Skyblock 3
+      author: TheRActivator
+      pages:
+      - |-
+        =================
+        §0§l     Welcome to
+        §9§o      Skyblock 3
+        §0=================
+
+        §0§lThis is an updated version of Skyblock with a few tweaks
+
+        §0§nPage 2: Tweaks
+        §0§l§nPage 3: Challenges
+      - |-
+        §lTweaks
+
+        §0Added:
+         - The End
+         - The Nether
+         - Nether Wart
+         - Soulsand
+         - 10 Challenges!
+         - All types of wood
+
+        Custom drops:
+         - Blazes: Quartz
+         - Zombies: Gravel
+      - |-
+        §lChallenges:
+
+        §01) Build a Cobblestone Generator
+        2) Build a House
+        3) Expand the Island
+        4) Make a melon farm
+        5) Make a pumpkin farm
+        6) Make a sugarcane farm
+      - |-
+        7) Make a wheat farm
+        8) Make a gaint red mushroom
+        9) Craft a bed
+        10) Make 64 stone bricks
+        11) Make 20 torches
+        12) Make an infinite water source
+        13) Craft a furnace
+        14) Make a small lake
+      - |-
+        15) Build a platform 24 blocks away from the island
+        16) Make 10 cactus green dye
+        17) Make 10 mushroom stew
+        18) Craft 10 Jack 'o' lanterns
+        19) Craft 10 bookcases
+        20) Make 10 bread
+        21) Collect 10 Ender-pearls
+      - |-
+        22) Cook 10 fish
+        23) Craft 10 Black Wool
+        24) Craft 10 Gray Wool
+        25) Craft 10 Light Gray Wool
+        26) Craft 10 Lime Wool
+        27) Craft 10 Red Wool
+        28) Craft 10 Yellow Wool
+      - |-
+        29) Craft 10 Pink Wool
+        30) Craft 10 Green Wool
+        31) Craft 10 Orange Wool
+        32) Craft 10 Snow Golems
+        33) Craft 20 Paintings
+        34) Build and ligth a nether portal
+        35) Craft 5 Gold Ingots
+      - |-
+        36) Craft 16 Glass Panes
+        37) Collect 50 birch logs
+        38) Collect 64 arrows and craft a bow
+        39) Craft 10 stone buttons
+        40) Craft 30 stone slabs
+        41) Craft 10 signs
+        42) Craft 20 ladders
+      - |-
+        43) Craft 20 fences
+        44) Craft 20 fence gates
+        45) Craft 10 levers
+        46) Craft 10 trapdoors
+        47) Craft 10 stone pressure plates
+        48) Craft 10 wooden pressure plates
+        49) Collect 64 bonemeal
+        50) Craft 20 cobblestone stairs
+      - |-
+        New Challenges:
+        51) Collect 64 iron
+        52) Make a gold farm in the nether
+        53) Cure a zombie villager
+        54) Spawn an iron golem
+        55) Use redstone in three contraptions
+        56) Find a slime chunk and create a slime farm
+      - |-
+        57) Make a lava aqueduct system
+        58) Go to the End and defeat the Enderdragon
+        59) Find an elytra
+        60) Spawn and defeat the wither
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - ==: org.bukkit.inventory.ItemStack
+    type: OBSIDIAN
+    amount: 10

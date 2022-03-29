@@ -43,7 +43,6 @@ public class ThemesCommand extends SubCommand {
 
         if(subCommand.equals("wand")){
             p.getInventory().addItem(Customization.getInstance().items.get("Wand"));
-            Skyblock.getInstance().adminSelection.put(p.getUniqueId(), new Location[2]);
             p.playSound(p.getLocation(), SoundsManager.ITEM_PICKUP, 1, 1);
             return true;
         }
@@ -61,8 +60,8 @@ public class ThemesCommand extends SubCommand {
                 return true;
             }
 
-            Location[] selection = Skyblock.getInstance().adminSelection.getOrDefault(p.getUniqueId(), new Location[2]);
-            if(selection[0] == null || selection[1] == null){
+            Location[] selection = Skyblock.getInstance().playerData.get(p.getUniqueId()).adminSelection;
+            if(selection == null || selection[0] == null || selection[1] == null){
                 p.sendMessage(Customization.getInstance().prefix + "You haven't selected the 2 corners yet!");
                 return true;
             }

@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ItemStackBuilder {
@@ -35,6 +36,7 @@ public class ItemStackBuilder {
 	public ItemStackBuilder setType(Material type){ item.setType(type); return this;}
 	public ItemStackBuilder setName(String name){ meta.setDisplayName(name); return this; }
 	public ItemStackBuilder addLore(String... l){ for(String x: l) lore.add(x); return this; }
+	public ItemStackBuilder addLore(Collection<String> l){ for(String x: l) lore.add(x); return this; }
 	public ItemStackBuilder addEnchantment(Enchantment e, int level){
 		if(item.getType().equals(Material.ENCHANTED_BOOK)){
 			((EnchantmentStorageMeta) meta).addStoredEnchant(e, level, true);
@@ -55,7 +57,7 @@ public class ItemStackBuilder {
 	PotionMeta potionMeta = (PotionMeta) item.getItemMeta();
 	try {
 	PotionMeta.class.getMethod("setBasePotionData", Class.forName("org.bukkit.potion.PotionData")).invoke(potionMeta, Class.forName("org.bukkit.potion.PotionData").getConstructor(PotionType.class, boolean.class, boolean.class).newInstance(type, extend, upgrade));
-	} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException e) { Bukkit.getConsoleSender().sendMessage("[Skywars] The used format for potions does not work on this minecraft version, please try other format which is POTION:DURABILITY");}
+	} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException e) { Utils.error("The used format for potions does not work on this minecraft version, please try other format which is POTION:DURABILITY");}
 	meta = potionMeta;
 	}
 	

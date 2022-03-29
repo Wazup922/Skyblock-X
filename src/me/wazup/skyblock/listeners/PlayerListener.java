@@ -13,8 +13,15 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerListener implements Listener {
+
+    ItemStack wand;
+
+    public PlayerListener(){
+        wand = Customization.getInstance().items.get("Wand");
+    }
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent e){
@@ -39,12 +46,18 @@ public class PlayerListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
 
-        if(Skyblock.getInstance().adminSelection.containsKey(p.getUniqueId()) && Utils.compareItem(p.getItemInHand(), Customization.getInstance().items.get("Wand"))){
+        if(Utils.compareItem(p.getItemInHand(), wand)){
             e.setCancelled(true);
             int id = e.getAction().equals(Action.LEFT_CLICK_BLOCK) ? 0 : e.getAction().equals(Action.RIGHT_CLICK_BLOCK) ? 1 : 2;
             if(id == 2) return;
             Location l = e.getClickedBlock().getLocation();
-            Skyblock.getInstance().adminSelection.get(p.getUniqueId())[id] = l;
+
+            PlayerData data =  Skyblock.getInstance().playerData.get(p.getUniqueId());
+            Location[] adminSelection = data.adminSelection;
+            if(adminSelection == null) adminSelection = new Location[2];
+            adminSelection[id] = l;
+            data.adminSelection = adminSelection;
+
             p.sendMessage(Customization.getInstance().prefix + "You have set the " + ChatColor.LIGHT_PURPLE + "#" + (id + 1) + ChatColor.GRAY + " corner at " + Utils.getReadableLocationString(l, false));
             return;
         }

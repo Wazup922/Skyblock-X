@@ -56,7 +56,7 @@ public class StatisticListener implements Listener {
         Player p = e.getPlayer();
         if(Skyblock.getInstance().players.contains(p.getUniqueId())){
             PlayerData data = Skyblock.getInstance().playerData.get(p.getUniqueId());
-            data.statistics.get(Enums.Statistic.BLOCKS_BROKEN).addScore(1);
+            data.statistics.get(Enums.Statistic.BLOCKS_PLACED).addScore(1);
         }
     }
 

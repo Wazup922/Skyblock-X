@@ -1,6 +1,7 @@
 package me.wazup.skyblock;
 
 import me.wazup.skyblock.managers.Config;
+import me.wazup.skyblock.managers.ThemeManager;
 import me.wazup.skyblock.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,9 +17,10 @@ public class Island {
     public String displayedName;
     public String displayedOwner;
     Location center;
+    Location spawnpoint;
     int borderSize;
 
-    HashMap<String, Location> warps;
+//    HashMap<String, Location> warps;
 
     public Island(FileConfiguration file, int id){
         this.id = id;
@@ -32,18 +34,19 @@ public class Island {
         int centerX = Integer.parseInt(centerString[0]);
         int centerZ = Integer.parseInt(centerString[1]);
         center = new Location(Bukkit.getWorld(Config.getInstance().worldName), centerX, 0, centerZ);
+        spawnpoint = Utils.getLocationFromString(file.getString(path + ".Warps.Spawn"));
 
         borderSize = 100; //Temp
 
-        warps = new HashMap<>();
-        for(String warp: file.getConfigurationSection(path + ".Warps").getKeys(false)){
-            Location l = Utils.getLocationFromString(file.getString(path + ".Warps." + warp));
-            warps.put(warp, l);
-        }
+//        warps = new HashMap<>();
+//        for(String warp: file.getConfigurationSection(path + ".Warps").getKeys(false)){
+//            Location l = Utils.getLocationFromString(file.getString(path + ".Warps." + warp));
+//            warps.put(warp, l);
+//        }
     }
 
     public void join(Player p){
-        p.teleport(center);
+        p.teleport(spawnpoint);
 
         try {
             Utils.createPlayerBorder(p, center, borderSize);

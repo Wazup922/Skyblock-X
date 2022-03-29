@@ -3,6 +3,10 @@ package me.wazup.skyblock.utils;
 import com.google.common.collect.Lists;
 import me.wazup.skyblock.managers.Customization;
 import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Container;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -162,6 +166,51 @@ public class Utils {
 
     public static void sendCommandUsage(CommandSender sender, String commandName, String arguments){
         sender.sendMessage(Customization.getInstance().prefix + "Usage: /Skyblock " + ChatColor.GREEN + commandName + ChatColor.YELLOW + " " + arguments);
+    }
+
+    public static void error(String message){
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[Skyblock X] " + message);
+    }
+
+    public static Inventory getBlockInventory(Block b){
+        if(XMaterial.isNewVersion()){
+            if(b.getState() instanceof Container){
+                return ((Container) b.getState()).getInventory();
+            }
+        } else {
+            if(b.getType().equals(Material.CHEST)){
+                return ((Chest) b.getState()).getInventory();
+            }
+        }
+        return null;
+    }
+
+    public static byte getByteFromFace(BlockFace face) {
+        switch (face) {
+            case EAST:
+                return (byte) 2;
+            case SOUTH:
+                return (byte) 3;
+            case WEST:
+                return (byte) 4;
+            default: //North
+                return (byte) 0;
+        }
+
+    }
+
+    public static BlockFace getFaceFromByte(byte id) {
+        switch (id) {
+            case 2:
+                return BlockFace.EAST;
+            case 3:
+                return BlockFace.SOUTH;
+            case 4:
+                return BlockFace.WEST;
+            default:
+                return BlockFace.NORTH;
+        }
+
     }
 
 }

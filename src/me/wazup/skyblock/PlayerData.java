@@ -8,6 +8,7 @@ import me.wazup.skyblock.utils.ItemStackBuilder;
 import me.wazup.skyblock.utils.Utils;
 import net.minecraft.util.CubicSampler;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -28,6 +29,8 @@ public class PlayerData {
     public boolean shouldSave;
 
     PlayerCondition outsideCondition;
+
+    public Location[] adminSelection;
 
     public PlayerData(Player p){
         saveName = Config.getInstance().usePlayersUUIDForSavingData ? p.getUniqueId().toString() : p.getName();

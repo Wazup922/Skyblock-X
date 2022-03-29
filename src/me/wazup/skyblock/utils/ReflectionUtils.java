@@ -1,12 +1,21 @@
 package me.wazup.skyblock.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ReflectionUtils {
+
+    public static Method setData;
+
+    public static void loadMethods(){
+        try {
+            setData = Block.class.getMethod("setData", byte.class, boolean.class);
+        } catch (NoSuchMethodException e) { }
+    }
 
     public static void sendPacket(Player p, Object packet) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         Object playerHandle = p.getClass().getMethod("getHandle").invoke(p);

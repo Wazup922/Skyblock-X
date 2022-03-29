@@ -1,18 +1,16 @@
 package me.wazup.skyblock.managers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.channels.FileChannel;
-import java.util.HashMap;
-
 import me.wazup.skyblock.Skyblock;
+import me.wazup.skyblock.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class FilesManager {
 
@@ -70,7 +68,7 @@ public class FilesManager {
         try {
             configurations.get(fileName).save(new File(Skyblock.getInstance().getDataFolder(), fileName));
         } catch (IOException ex) {
-            Bukkit.getConsoleSender().sendMessage(Customization.getInstance().prefix + "Couldn't save " + fileName + "!");
+            Utils.error("Couldn't save " + fileName + "!");
         }
     }
 
@@ -112,7 +110,7 @@ public class FilesManager {
 //                }
 //            }
 //        } catch (IOException e){
-//            Bukkit.getConsoleSender().sendMessage(Customization.getInstance().prefix + "Failed to copy files!");
+//            Utils.error("Failed to copy files!");
 //            e.printStackTrace();
 //        }
 //    }

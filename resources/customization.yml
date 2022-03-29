@@ -17,6 +17,8 @@ Items:
   Wand: 'BLAZE_ROD : name:&bSkyblock X &dWand : lore:&e-------------------------- : lore:&aLeft click to select the first corner : lore:&aRight click to select the second corner : lore:&e--------------------------'
   Pane: 'GRAY_STAINED_GLASS_PANE : name:&7 '
   Back: 'ARROW : name:&aBack : lore:&7Click to go back!'
+  Next: 'STAINED_GLASS:5 : name:&aNext page'
+  Previous: 'STAINED_GLASS:14 : name:&cPrevious page'
 
 Statistics:
   MOBS_KILLED:
